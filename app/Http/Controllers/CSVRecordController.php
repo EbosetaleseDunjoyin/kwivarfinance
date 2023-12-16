@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CSVRecord;
+use App\Models\CsvRecord;
 use Illuminate\Http\Request;
 
-class CSVRecordController extends Controller
+class CsvRecordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class CSVRecordController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CSVRecord $cSVRecord)
+    public function show(CsvRecord $csvRecord)
     {
         //
     }
@@ -42,7 +42,7 @@ class CSVRecordController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CSVRecord $cSVRecord)
+    public function edit(CsvRecord $csvRecord)
     {
         //
     }
@@ -50,7 +50,7 @@ class CSVRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CSVRecord $cSVRecord)
+    public function update(Request $request, CsvRecord $csvRecord)
     {
         //
     }
@@ -58,7 +58,7 @@ class CSVRecordController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CSVRecord $cSVRecord)
+    public function destroy(CsvRecord $csvRecord)
     {
         //
     }
