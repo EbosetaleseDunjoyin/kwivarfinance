@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Models\Admin;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Log;
@@ -13,45 +13,40 @@ use Illuminate\Http\RedirectResponse;
 
 class Authcontroller extends Controller
 {
-    //
-
-    //Show admin login form
-    public function showLoginForm()
+        
+    /**
+     * Show Admin Login Form
+     * 
+     * showLoginForm
+     *
+     * @return View
+     */
+    public function showLoginForm() : View
     {
         return view('auth.admin.login');
     }
-
-    public function showRegisterForm()
+    
+    /**
+     * Show Admin Register Form 
+     * 
+     * showRegisterForm
+     *
+     * @return View
+     */
+    public function showRegisterForm() : View
     {
         return view('auth.admin.register');
     }
 
 
-    //Login Admin
-    // public function login(Request $request)
-    // {
-    //     // $credentials = $request->only('email', 'password');
-    //     // $request->validate([
-    //     //     // 'username' => ['required', 'string', 'max:255'],
-    //     //     'email' => ['required','lowercase', 'email', 'exists:' . Admin::class],
-    //     //     'password' => ['required'],
-    //     // ]);
-
-    //     $credentials = $request->validate([
-    //         'email' => ['required', 'email', 'exists:admins,email'],
-    //         'password' => ['required'],
-    //     ]);
-    //     $authenticate = Auth::guard('admin')->attempt($credentials);
-    //     // $authenticate = Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'));
-
-    //     Log::info($authenticate); Log::error($authenticate);
-    //     if ($authenticate) {
-    //         return redirect()->route('admin.dashboard');
-    //     } else {
-    //         return redirect()->back()->withErrors(['general' => 'Issue occured with signing up']);
-    //     }
-    // }
-
+    /**
+     * Login Admin
+     * 
+     * login
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
     public function login(Request $request) : RedirectResponse
     {
         // Validate the request data
@@ -64,7 +59,6 @@ class Authcontroller extends Controller
         $loginField = filter_var($validate['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         // Check if the email exists in the admin table
-        
         if($loginField == "email") {
             $admin = Admin::where('email', $validate['login'])->first();
 
@@ -83,7 +77,6 @@ class Authcontroller extends Controller
         
         try {
             if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
-               
                 return redirect()->route('admin.dashboard');
             } else {
                 
@@ -97,7 +90,14 @@ class Authcontroller extends Controller
         }
     }
 
-    //Register Admin
+
+    /**
+     * Register Admin
+     * register
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
     public function register(Request $request) : RedirectResponse
     {
 
@@ -127,7 +127,15 @@ class Authcontroller extends Controller
     }
 
 
-
+    
+    /**
+     * Logout Admin
+     * 
+     * destroy
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('admin')->logout();
@@ -136,7 +144,7 @@ class Authcontroller extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route("admin.login");
     }
 
 
