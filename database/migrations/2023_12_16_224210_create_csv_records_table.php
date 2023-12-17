@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('csv_records', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // user id
+            $table->string('file_name'); // Custom file name
+            $table->string('csv_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
