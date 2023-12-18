@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('csv-records.index')" :active="request()->routeIs('csv-records.index')">
+                        {{ __('CSV Records') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('public-api.index')" :active="request()->routeIs('public-api.index')">
+                        {{ __('Public Apis') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -69,6 +75,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('csv-records.index')" :active="request()->routeIs('csv-records.index')">
+                {{ __('CSV Records') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('public-api.index')" :active="request()->routeIs('public-api.index')">
+                {{ __('Public APis') }}
             </x-responsive-nav-link>
         </div>
 

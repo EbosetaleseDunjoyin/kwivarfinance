@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CsvRecordController;
+use App\Http\Controllers\PublicApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,24 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    //Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // CSV Records Routes 
+    Route::get('/csv-records', [CsvRecordController::class, 'index'])->name('csv-records.index');
+    Route::post('/csv-records/import', [CsvRecordController::class, 'importCSV'])->name('csv-records.import');
+    Route::delete('/csv-records/{file_name}/delete', [CsvRecordController::class, 'destroy'])->name('csv-records.delete');
+
+    //Public Api routes
+    Route::get('/public-apis', [PublicApiController::class, 'index'])->name('public-api.index');
+    Route::get('/public-apis/test', [PublicApiController::class, 'test'])->name('public-api.test');
+    Route::post('/public-apis/import', [PublicApiController::class, 'importApiData'])->name('public-api.import');
+    Route::delete('/public-apis/truncate', [PublicApiController::class, 'truncate'])->name('public-api.truncate');
+
+
+
 });
 
 
