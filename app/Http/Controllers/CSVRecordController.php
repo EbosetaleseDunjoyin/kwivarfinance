@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CsvRecord;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -12,8 +13,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class CsvRecordController extends Controller
 {
+       
     /**
-     * Display a listing of the resource.
+     * index
+     *
+     * @return View
      */
     public function index() : View
     {
@@ -52,16 +56,18 @@ class CsvRecordController extends Controller
 
     }
 
-   
-
+     
     /**
-     * Store a newly created resource in storage.
+     * importCSV
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
      */
-    public function importCSV(Request $request)
+    public function importCSV(Request $request) : RedirectResponse
     {
         //
         $request->validate([
-            'file' => 'required|mimes:csv,txt|max:2048',
+            'file' => 'required|mimes:csv|max:2048',
         ]);
 
         $file = $request->file('file');
@@ -79,7 +85,7 @@ class CsvRecordController extends Controller
             // }
 
             try {
-                CsvRecord::updateOrCreate(
+                CsvRecord::firstOrCreate(
                     [
                         'csv_id' => $data[0],
                         'email' => $data[1],
@@ -102,11 +108,15 @@ class CsvRecordController extends Controller
         return redirect()->back()->with('success', 'CSV file imported successfully.');
     }
 
-   
+       
     /**
-     * Remove the specified resource from storage.
+     * Delete a particular csv file
+     * destroy
+     *
+     * @param  mixed $filename
+     * @return RedirectResponse
      */
-    public function destroy($filename)
+    public function destroy($filename): RedirectResponse
     {
         //
         try {
