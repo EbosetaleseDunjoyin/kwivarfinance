@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CsvRecordController;
+use App\Http\Controllers\JobsController;
 use App\Http\Controllers\PublicApiController;
 
 /*
@@ -43,8 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/public-apis/import', [PublicApiController::class, 'importApiData'])->name('public-api.import');
     Route::delete('/public-apis/truncate', [PublicApiController::class, 'truncate'])->name('public-api.truncate');
 
-
-
+    //Send Job to queuse
+    Route::get('/createJob/sendMailToactiveUsers', [JobsController::class, 'sendMailToactiveUsers'])->name('create-Job');
 });
 
 

@@ -21,13 +21,18 @@ class ExceptionOccured extends Mailable
 
     public function __construct(Exception $exception)
     {
-        $this->exception = $exception; 
+        if (!($exception instanceof Exception)) {
+            $this->exception = new Exception((string) $exception);
+        } else {
+            $this->exception = $exception;
+        } 
     }
 
     public function build() 
     {
         return $this->view('emails.exception')
-            ->subject('Exception Occurred');
+            ->subject('Exception Occurred')
+            ->with('exception',$this->exception);
     }
 
     /**
